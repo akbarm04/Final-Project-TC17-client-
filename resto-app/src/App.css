@@ -1,0 +1,19 @@
+*{
+    -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+
+.dropdown-cart {
+    position: absolute;
+    left: 50%; 
+    transform: translateX(-50%); 
+    top: calc(100% + 10px); 
+    width: 250px;
+    background-color: white; 
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    z-index: 1000;
+    display: none; 
+}
