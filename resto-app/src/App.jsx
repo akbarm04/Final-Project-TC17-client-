@@ -11,6 +11,8 @@ function App() {
     const [cartItems, setCartItems] = useState([]); 
     const [isDetailOpen, setIsDetailOpen] = useState(false); 
     const [selectedMenu, setSelectedMenu] = useState(null); 
+    const [searchQuery, setSearchQuery] = useState(''); // State untuk menyimpan query pencarian
+
 
     async function getData() {
         const url = "https://final-project-tc17-server-production.up.railway.app/menu";
@@ -31,7 +33,8 @@ function App() {
     }, []);
 
 
-    const filteredMenu = dataMenu.filter(menu => menu.Kategori === selectedCategory);
+    const filteredMenu = dataMenu.filter(menu => menu.Kategori === selectedCategory && 
+        menu.title.toLowerCase().includes(searchQuery.toLowerCase()) );
 
     const showDetail = (menu) => {
         setSelectedMenu(menu); 
@@ -80,6 +83,8 @@ function App() {
                     cartItems={cartItems} 
                     updateCartItemQuantity={updateCartItemQuantity} 
                     checkout={checkout} 
+                    searchQuery={searchQuery} // Mengirimkan query pencarian ke Navbar
+                    setSearchQuery={setSearchQuery}
                 />
                 
                 {/* Heading */}
