@@ -3,6 +3,7 @@ import './App.css';
 import CardItem from "./components/CardItem";
 import Navbar from "./components/Navbar";
 import ModalDetail from "./components/ModalDetail"; 
+import Swal from 'sweetalert2';
 
 function App() {
     const [dataMenu, setDataMenu] = useState([]);
@@ -51,10 +52,10 @@ function App() {
             const existingItem = prevItems.find(item => item.id === menu.id);
             if (existingItem) {
                 return prevItems.map(item =>
-                    item.id === menu.id ? { ...item, quantity: item.quantity + 1 } : item
+                    item.id === menu.id ? { ...item, quantity: item.quantity + menu.quantity } : item
                 );
             }
-            return [...prevItems, { ...menu, quantity: 1 }];
+            return [...prevItems, { ...menu, quantity: menu.quantity }];
         });
     };
 
@@ -71,8 +72,24 @@ function App() {
         };
     
         const checkout = () => {
+            if (cartItems.length === 0) {
+                Swal.fire({
+                    title: 'Cart is Empty!',
+                    text: 'Please add items to your cart before checking out.',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                });
+            } else {
+            Swal.fire({
+                title: 'Checkout Successful!',
+                text: 'Your cart has been checked out successfully!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
             setCartItems([]); 
             setCartCount(0); 
+            });
+        }
         };
     
         return (

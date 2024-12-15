@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Swal from 'sweetalert2'; 
 
 const ModalDetail = ({ isOpen, onClose, menu, addToCart }) => {
     const [quantity, setQuantity] = useState(1); 
@@ -19,7 +20,14 @@ const ModalDetail = ({ isOpen, onClose, menu, addToCart }) => {
 
     const handleAddToCart = () => {
         addToCart({ ...menu, quantity }); 
+        Swal.fire({
+            title: 'Success!',
+            text: `${menu.title} has been added to your cart!`,
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }); 
         resetQuantity();
+        onClose();
     };
 
     const resetQuantity = () => {
@@ -110,7 +118,7 @@ const ModalDetail = ({ isOpen, onClose, menu, addToCart }) => {
                                         type="button"
                                         className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-rose-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                                     >
-                                        Decline
+                                        Close
                                     </button>
                                 </div>
                             </div>
